@@ -1,0 +1,4 @@
+CREATE DATABASE task_db;
+USE task_db;
+SHOW TABLES;
+SELECT * FROM Tasks;
