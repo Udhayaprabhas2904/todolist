@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ToDo Manager</title>
+
+    <link rel="stylesheet" href="/static/style.css">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+</head>
+
+<body>
+
+    <!-- ================= NAVBAR ================= -->
+
+    <nav class="navbar">
+
+        <div class="logo">
+            <i class="fa-solid fa-list-check"></i> ToDo Manager
+        </div>
+
+        <div class="menu">
+            <a href="/"><i class="fa-solid fa-house"></i> Home</a>
+            <a href="/frontend"><i class="fa-solid fa-list"></i> Tasks</a>
+            <a href="/docs"><i class="fa-solid fa-book"></i> API Docs</a>
+            <a href="/health"><i class="fa-solid fa-heart-pulse"></i> Health</a>
+        </div>
+
+    </nav>
+
+    <!-- ================= MAIN CONTAINER ================= -->
+
+    <div class="container">
+
+        <div class="header">
+            <h1><i class="fa-solid fa-calendar-check"></i> ToDo Dashboard</h1>
+            <p id="todayDate"></p>
+        </div>
+
+        <input type="hidden" id="task_id">
+
+        <!-- Task Form -->
+
+        <!-- Task Name -->
+<input type="text"
+       id="task_name"
+       placeholder="Enter Task Name">
+
+<!-- Description -->
+<input type="text"
+       id="description"
+       placeholder="Enter Description">
+
+<!-- Time Limit -->
+<input type="number"
+       id="time_limit"
+       placeholder="Time Limit (Hours)">
+
+<!-- Status -->
+<select id="status" required>
+    <option value="" disabled selected> Select Status</option>
+    <option value="Pending">🕒 Pending</option>
+    <option value="Done">✅ Completed</option>
+</select>
+
+        <!-- Buttons -->
+
+        <div class="button-group">
+
+            <button onclick="createTask()">
+                <i class="fa-solid fa-plus"></i> Create
+            </button>
+
+            <button onclick="updateTask()">
+                <i class="fa-solid fa-pen"></i> Update
+            </button>
+
+            <button onclick="loadTasks()">
+                <i class="fa-solid fa-eye"></i> View
+            </button>
+
+            <button onclick="markAllDone()">
+                <i class="fa-solid fa-check-double"></i> Mark Done
+            </button>
+
+            <button onclick="deleteAllTasks()">
+                <i class="fa-solid fa-trash"></i> Delete All
+            </button>
+
+        </div>
+
+        <hr>
+
+        <!-- Pending -->
+
+        <h2 class="pending-heading">
+            <i class="fa-solid fa-hourglass-half"></i>
+            Pending Tasks
+        </h2>
+
+        <table>
+
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Task</th>
+                    <th>Description</th>
+                    <th>Time</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+
+            <tbody id="pendingTasks"></tbody>
+
+        </table>
+
+        <br>
+
+        <!-- Completed -->
+
+        <h2 class="completed-heading">
+            <i class="fa-solid fa-circle-check"></i>
+            Completed Tasks
+        </h2>
+
+        <table>
+
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Task</th>
+                    <th>Description</th>
+                    <th>Time</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+
+            <tbody id="completedTasks"></tbody>
+
+        </table>
+
+    </div>
+    
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer class="footer">
+        <p>
+            <i class="fa-regular fa-copyright"></i>
+            2026 ToDo Manager | FastAPI • MySQL • JavaScript
+        </p>
+    </footer>
+
+    <script src="/static/script.js"></script>
+
+    <script>
+        const today = new Date();
+        document.getElementById("todayDate").innerHTML =
+            today.toDateString();
+    </script>
+
+</body>
+
+</html>
