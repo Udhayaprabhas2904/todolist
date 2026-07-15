@@ -1,10 +1,10 @@
-# 📝 ToDo Manager
+# ToDo Manager
 
 A modern and responsive ToDo Manager web application built using **FastAPI**, **MySQL**, **HTML**, **CSS**, and **JavaScript**. The application allows users to efficiently manage daily tasks through a simple and user-friendly interface.
 
 ---
 
-## 🚀 Features
+## Features
 
 - ➕ Create new tasks
 - 📋 View all tasks
@@ -19,7 +19,7 @@ A modern and responsive ToDo Manager web application built using **FastAPI**, **
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 ### Backend
 - FastAPI
@@ -42,7 +42,7 @@ A modern and responsive ToDo Manager web application built using **FastAPI**, **
 
 ---
 
-## 📂 Project Structure
+## Project Structure
 
 ```text
 todolist/
@@ -63,7 +63,7 @@ todolist/
 
 ---
 
-## ⚙️ Installation
+## Installation
 
 ### Clone the repository
 
@@ -105,7 +105,7 @@ uvicorn main:app --reload
 
 ---
 
-## 🌐 Application URLs
+## Application URLs
 
 **Frontend**
 
@@ -131,9 +131,8 @@ http://127.0.0.1:8000/health
 
 **Udhayaprabha S**
 
-
 ---
 
-## 📄 License
+## License
 
 This project is created for learning and educational purposes.
