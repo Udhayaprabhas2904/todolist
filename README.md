@@ -6,16 +6,16 @@ A modern and responsive ToDo Manager web application built using **FastAPI**, **
 
 ## Features
 
-- ➕ Create new tasks
-- 📋 View all tasks
-- ✏️ Update existing tasks
-- 🗑️ Delete individual tasks
-- ❌ Delete all tasks
-- ✅ Mark all tasks as completed
-- 📌 Separate Pending and Completed task sections
-- ⏰ Reminder date and time support
-- 🎨 Responsive and modern user interface
-- 📖 Interactive API documentation using Swagger UI
+- Create new tasks
+- View all tasks
+- Update existing tasks
+- Delete individual tasks
+- Delete all tasks
+- Mark all tasks as completed
+- Separate Pending and Completed task sections
+- Reminder date and time support
+- Responsive and modern user interface
+- Interactive API documentation using Swagger UI
 
 ---
 
@@ -105,24 +105,38 @@ uvicorn main:app --reload
 
 ---
 
-## Application URLs
+## Application URLs with Screenshots
 
 **Frontend**
 
 ```
 http://127.0.0.1:8000/frontend
+
+<img width="1867" height="871" alt="image" src="https://github.com/user-attachments/assets/20fe9b1e-15b6-4860-a148-5691003ec770" />
+<img width="1899" height="851" alt="image" src="https://github.com/user-attachments/assets/fb935f4e-bf77-442a-b1b4-2cb74c733077" />
+
+
+
 ```
 
 **Swagger API Documentation**
 
 ```
 http://127.0.0.1:8000/docs
+
+<img width="1884" height="759" alt="image" src="https://github.com/user-attachments/assets/262e5523-5a59-4ca2-b7fb-2b6329b47d61" />
+<img width="1873" height="423" alt="image" src="https://github.com/user-attachments/assets/22dfecb0-bc72-4bd2-bd9c-6a9ec2b1da4b" />
+
+
 ```
 
 **Health Check**
 
 ```
 http://127.0.0.1:8000/health
+
+<img width="1791" height="424" alt="image" src="https://github.com/user-attachments/assets/bd2aaf3b-2382-4484-be22-e487e45bd9bd" />
+
 ```
 
 ---
