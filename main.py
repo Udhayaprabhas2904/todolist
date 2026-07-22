@@ -8,38 +8,74 @@ import model
 import schema
 from database import engine, get_db
 
-# Create Database Tables
+
+# =====================================================
+# CREATE DATABASE TABLES
+# =====================================================
+
 model.Base.metadata.create_all(bind=engine)
+
+
+# =====================================================
+# CREATE FASTAPI APP
+# =====================================================
 
 app = FastAPI(title="ToDo API")
 
-# -------------------- FRONTEND CONFIGURATION --------------------
 
-app.mount("/static", StaticFiles(directory="static"), name="static")
+# =====================================================
+# FRONTEND CONFIGURATION
+# =====================================================
 
-templates = Jinja2Templates(directory="templates")
+app.mount(
+    "/static",
+    StaticFiles(directory="static"),
+    name="static"
+)
+
+templates = Jinja2Templates(
+    directory="templates"
+)
 
 
-# -------------------- HOME --------------------
+# =====================================================
+# HOME
+# =====================================================
 
 @app.get("/")
 def home():
-    return {"message": "Welcome to ToDo API"}
+
+    return {
+        "message": "Welcome to ToDo API"
+    }
 
 
-# -------------------- FRONTEND --------------------
+# =====================================================
+# FRONTEND
+# =====================================================
 
-@app.get("/frontend", response_class=HTMLResponse)
+@app.get(
+    "/frontend",
+    response_class=HTMLResponse
+)
 def frontend(request: Request):
+
     return templates.TemplateResponse(
-        request=request,
-        name="index.html"
+        "index.html",
+        {
+            "request": request
+        }
     )
 
 
-# -------------------- CREATE TASK --------------------
+# =====================================================
+# CREATE TASK
+# =====================================================
 
-@app.post("/todo", response_model=schema.CreateTaskResponse)
+@app.post(
+    "/todo",
+    response_model=schema.CreateTaskResponse
+)
 def create_task(
     task: schema.CreateTaskRequest,
     db: Session = Depends(get_db)
@@ -59,19 +95,31 @@ def create_task(
     return db_task
 
 
-# -------------------- GET ALL TASKS --------------------
+# =====================================================
+# GET ALL TASKS
+# =====================================================
 
-@app.get("/todo", response_model=list[schema.CreateTaskResponse])
-def get_all_tasks(db: Session = Depends(get_db)):
+@app.get(
+    "/todo",
+    response_model=list[schema.CreateTaskResponse]
+)
+def get_all_tasks(
+    db: Session = Depends(get_db)
+):
 
     tasks = db.query(model.Task).all()
 
     return tasks
 
 
-# -------------------- GET TASK BY ID --------------------
+# =====================================================
+# GET TASK BY ID
+# =====================================================
 
-@app.get("/todo/{task_id}", response_model=schema.CreateTaskResponse)
+@app.get(
+    "/todo/{task_id}",
+    response_model=schema.CreateTaskResponse
+)
 def get_task(
     task_id: int,
     db: Session = Depends(get_db)
@@ -82,6 +130,7 @@ def get_task(
     ).first()
 
     if task is None:
+
         raise HTTPException(
             status_code=404,
             detail="Task Not Found"
@@ -90,9 +139,14 @@ def get_task(
     return task
 
 
-# -------------------- UPDATE ENTIRE TASK --------------------
+# =====================================================
+# UPDATE ENTIRE TASK
+# =====================================================
 
-@app.put("/todo/{task_id}", response_model=schema.UpdateTaskResponse)
+@app.put(
+    "/todo/{task_id}",
+    response_model=schema.UpdateTaskResponse
+)
 def update_task(
     task_id: int,
     task: schema.UpdateTaskRequest,
@@ -104,6 +158,7 @@ def update_task(
     ).first()
 
     if db_task is None:
+
         raise HTTPException(
             status_code=404,
             detail="Task Not Found"
@@ -120,9 +175,14 @@ def update_task(
     return db_task
 
 
-# -------------------- PATCH STATUS --------------------
+# =====================================================
+# PATCH TASK STATUS
+# =====================================================
 
-@app.patch("/todo/{task_id}", response_model=schema.PatchTaskResponse)
+@app.patch(
+    "/todo/{task_id}",
+    response_model=schema.PatchTaskResponse
+)
 def patch_task(
     task_id: int,
     task: schema.PatchTaskRequest,
@@ -134,12 +194,14 @@ def patch_task(
     ).first()
 
     if db_task is None:
+
         raise HTTPException(
             status_code=404,
             detail="Task Not Found"
         )
 
     if task.status is not None:
+
         db_task.status = task.status
 
     db.commit()
@@ -148,20 +210,26 @@ def patch_task(
     return db_task
 
 
-# -------------------- MARK ALL TASKS AS DONE --------------------
+# =====================================================
+# MARK ALL TASKS AS DONE
+# =====================================================
 
 @app.put("/todo")
-def mark_all_done(db: Session = Depends(get_db)):
+def mark_all_done(
+    db: Session = Depends(get_db)
+):
 
     tasks = db.query(model.Task).all()
 
     if not tasks:
+
         raise HTTPException(
             status_code=404,
             detail="No Tasks Found"
         )
 
     for task in tasks:
+
         task.status = "Done"
 
     db.commit()
@@ -171,7 +239,9 @@ def mark_all_done(db: Session = Depends(get_db)):
     }
 
 
-# -------------------- DELETE TASK --------------------
+# =====================================================
+# DELETE TASK
+# =====================================================
 
 @app.delete("/todo/{task_id}")
 def delete_task(
@@ -184,6 +254,7 @@ def delete_task(
     ).first()
 
     if task is None:
+
         raise HTTPException(
             status_code=404,
             detail="Task Not Found"
@@ -197,14 +268,19 @@ def delete_task(
     }
 
 
-# -------------------- DELETE ALL TASKS --------------------
+# =====================================================
+# DELETE ALL TASKS
+# =====================================================
 
 @app.delete("/todo")
-def delete_all_tasks(db: Session = Depends(get_db)):
+def delete_all_tasks(
+    db: Session = Depends(get_db)
+):
 
     tasks = db.query(model.Task).all()
 
     if not tasks:
+
         raise HTTPException(
             status_code=404,
             detail="No Tasks Found"
@@ -219,7 +295,9 @@ def delete_all_tasks(db: Session = Depends(get_db)):
     }
 
 
-# -------------------- HEALTH CHECK --------------------
+# =====================================================
+# HEALTH CHECK
+# =====================================================
 
 @app.get("/health")
 def health_check():
